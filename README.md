@@ -8,6 +8,8 @@ To install:
 
 ## Server
 
+`cd` into the `/server` folder.
+
 `yarn install`
 
 `yarn dev`
@@ -34,6 +36,8 @@ In the "QUERY VARIABLES" panel, add this:
 ```
 
 ## Client
+
+`cd` into the `/client` folder.
 
 `yarn install`
 
