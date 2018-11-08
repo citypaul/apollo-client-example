@@ -12,6 +12,27 @@ To install:
 
 `yarn dev`
 
+Visit http://localhost:4000 to see the GraphQL playground.
+
+Here's a query you can use:
+
+```gql
+query searchQuery($name: String) {
+  names(name: $name) {
+    firstName
+    lastName
+  }
+}
+```
+
+In the "QUERY VARIABLES" panel, add this:
+
+```json
+{
+  "name": "lu"
+}
+```
+
 ## Client
 
 `yarn install`
@@ -21,3 +42,5 @@ To install:
 The server has a json file containing a list of Star Wars character names.
 
 The client will query this. It should all just work.
+
+Visit http://localhost:3000
