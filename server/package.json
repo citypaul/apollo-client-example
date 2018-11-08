@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./dist/server.js",
+    "build": "babel src --out-dir dist",
+    "dev": "nodemon --exec babel-node ./src/server.js"
+  },
+  "dependencies": {
+    "graphql-yoga": "^1.16.7",
+    "starwars-names": "^1.6.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.5",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.5",
+    "nodemon": "^1.18.6"
+  }
+}
