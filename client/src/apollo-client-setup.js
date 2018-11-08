@@ -3,9 +3,13 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
 import { onError } from 'apollo-link-error'
 import { ApolloLink } from 'apollo-link'
+import apolloLocalState from './apollo-client-local-state-setup'
+
+const cache = new InMemoryCache()
 
 export default new ApolloClient({
   link: ApolloLink.from([
+    apolloLocalState(cache),
     onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors)
         graphQLErrors.map(({ message, locations, path }) =>
@@ -18,5 +22,5 @@ export default new ApolloClient({
       credentials: 'same-origin',
     }),
   ]),
-  cache: new InMemoryCache(),
+  cache,
 })
