@@ -1,5 +1,5 @@
-import {GraphQLServer} from 'graphql-yoga'
-import {all} from 'starwars-names'
+import { GraphQLServer } from 'graphql-yoga'
+import { all } from 'starwars-names'
 
 const typeDefs = `
   type Name {
@@ -13,12 +13,12 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    names: (_, {name}) =>
+    names: (_, { name }) =>
       all
         .filter(value => value.toLowerCase().includes(name.toLowerCase()))
-        .map(value => ({firstName: value.split(' ')[0], lastName: value.split(' ')[1]})),
+        .map(value => ({ firstName: value.split(' ')[0], lastName: value.split(' ')[1] })),
   },
 }
 
-const server = new GraphQLServer({typeDefs, resolvers})
+const server = new GraphQLServer({ typeDefs, resolvers })
 server.start(() => console.log('Server is running on localhost:4000'))

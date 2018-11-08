@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {Query} from 'react-apollo'
+import React, { Component } from 'react'
+import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
 const query = gql`
@@ -12,17 +12,17 @@ const query = gql`
 `
 
 const getNames = names =>
-  names.map(({firstName, lastName}) => <p key={`${firstName}-${lastName}`}>{`${firstName} ${lastName}`}</p>)
+  names.map(({ firstName, lastName }) => <p key={`${firstName}-${lastName}`}>{`${firstName} ${lastName}`}</p>)
 
 export default class Search extends Component {
   state = {
     name: '',
   }
 
-  getSearch = ({names}) => <div>{getNames(names)}</div>
+  getSearch = ({ names }) => <div>{getNames(names)}</div>
 
   render() {
-    const {name} = this.state
+    const { name } = this.state
 
     return (
       <div>
@@ -37,8 +37,8 @@ export default class Search extends Component {
             })
           }}
         />
-        <Query query={query} variables={{name}}>
-          {({loading, error, data}) => {
+        <Query query={query} variables={{ name }}>
+          {({ loading, error, data }) => {
             if (loading) {
               return <p>Loading...</p>
             }
