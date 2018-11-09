@@ -4,13 +4,13 @@ import gql from 'graphql-tag'
 import './send-notification-bar.css'
 
 const INCREMENT_COUNT = gql`
-  mutation {
+  mutation incrementCount {
     incrementCount @client
   }
 `
 
 const DECREMENT_COUNT = gql`
-  mutation {
+  mutation decrementCount {
     decrementCount @client
   }
 `
