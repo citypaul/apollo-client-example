@@ -22,28 +22,12 @@ export default class NotificationBar extends Component {
         <p>🔥🔥 Send a notification using local state: 🔥🔥</p>
         <Mutation mutation={INCREMENT_COUNT}>
           {incrementCount => {
-            return (
-              <button
-                onClick={() => {
-                  incrementCount()
-                }}
-              >
-                Increment counter
-              </button>
-            )
+            return <button onClick={incrementCount}>Increment counter</button>
           }}
         </Mutation>
         <Mutation mutation={DECREMENT_COUNT}>
           {decrementCount => {
-            return (
-              <button
-                onClick={() => {
-                  decrementCount()
-                }}
-              >
-                Decrement counter
-              </button>
-            )
+            return <button onClick={decrementCount}>Decrement counter</button>
           }}
         </Mutation>
       </div>
