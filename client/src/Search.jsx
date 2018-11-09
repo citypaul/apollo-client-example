@@ -38,7 +38,7 @@ export default class Search extends Component {
           }}
         />
         <Query query={query} variables={{ name }}>
-          {({ loading, error, data }) => {
+          {({ loading, data }) => {
             if (loading) {
               return <p>Loading...</p>
             }

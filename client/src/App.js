@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { ApolloProvider } from 'react-apollo'
-import logo from './logo.svg'
 import './App.css'
 import Search from './Search'
+import NotificationBar from './NotificationBar'
+import SendNotification from './SendNotification'
 import apolloClient from './apollo-client-setup'
 
 class App extends Component {
@@ -10,6 +11,8 @@ class App extends Component {
     return (
       <ApolloProvider client={apolloClient}>
         <div className="App">
+          <NotificationBar />
+          <SendNotification />
           <Search />
         </div>
       </ApolloProvider>
