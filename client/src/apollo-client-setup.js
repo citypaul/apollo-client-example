@@ -9,7 +9,7 @@ const cache = new InMemoryCache()
 
 export default new ApolloClient({
   link: ApolloLink.from([
-    apolloLocalStateSetup(cache),
+    apolloLocalStateSetup,
     onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors)
         graphQLErrors.map(({ message, locations, path }) =>
