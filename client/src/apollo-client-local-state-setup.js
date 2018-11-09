@@ -22,8 +22,10 @@ export default withClientState({
       decrementCount: (_, __, { cache }) => {
         let { count } = cache.readQuery({ query: COUNT_QUERY })
         count = count - 1
+
         const data = { count }
         cache.writeQuery({ query: COUNT_QUERY, data })
+
         return data
       },
     },
