@@ -1,6 +1,6 @@
 // docs: https://www.apollographql.com/docs/link/links/state.html
 import { withClientState } from 'apollo-link-state'
-import gql from 'graphql-tag'
+import { COUNT_QUERY } from './graphql-crud/queries'
 
 const typeDefs = `
   type Count {
@@ -12,34 +12,33 @@ const typeDefs = `
   }
 
   type Mutation {
-    incrementCount(number: Int): Count
-    decrementCount(number: Int): Count
+    incrementCount(): Count
+    decrementCount(): Count
   }
 `
 
 const defaults = {
-  count: {
-    number: 0,
-    __typename: 'Count',
-  },
+  count: 0,
 }
 
 export default cache =>
   withClientState({
     cache,
-    typeDefs,
+    // typeDefs,
     defaults,
     resolvers: {
       Mutation: {
-        incrementCount: (_, { number }, { cache }) => {
-          const data = {
-            number: 1,
-            __typename: 'Count',
-          }
-
-          // cache.writeData({ data })
-          console.log('x cache:', cache.readData())
-          return data
+        incrementCount: (_, __, { cache }) => {
+          let { count } = cache.readQuery({ query: COUNT_QUERY })
+          count = count + 1
+          cache.writeQuery({ query: COUNT_QUERY, data: { count } })
+          return {}
+        },
+        decrementCount: (_, __, { cache }) => {
+          let { count } = cache.readQuery({ query: COUNT_QUERY })
+          count = count - 1
+          cache.writeQuery({ query: COUNT_QUERY, data: { count } })
+          return {}
         },
       },
       // Query: {

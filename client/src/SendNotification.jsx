@@ -3,11 +3,15 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import './notification-bar.css'
 
-const mutation = gql`
-  mutation countQuery($number: Int) {
-    incrementCount(number: $number) @client {
-      number
-    }
+const INCREMENT_COUNT = gql`
+  mutation {
+    incrementCount @client
+  }
+`
+
+const DECREMENT_COUNT = gql`
+  mutation {
+    decrementCount @client
   }
 `
 
@@ -16,29 +20,37 @@ export default class NotificationBar extends Component {
 
   render() {
     return (
-      <Mutation mutation={mutation}>
-        {(incrementCount, { data }) => {
-          console.log(data)
-          return (
-            <div className="notification-bar">
+      <div className="notification-bar">
+        <p>Send a notification using local state:</p>
+        <Mutation mutation={INCREMENT_COUNT}>
+          {incrementCount => {
+            return (
               <button
                 onClick={() => {
                   incrementCount()
                 }}
               >
-                Do something!
+                Increment counter
               </button>
-              <div>
-                <p>Send a notification using local state:</p>
-                <button>Say hello</button>
-                <button>Say goodbye</button>
-                <button>Increment counter</button>
-                <button>Decrement counter</button>
-              </div>
-            </div>
-          )
-        }}
-      </Mutation>
+            )
+          }}
+        </Mutation>
+        <Mutation mutation={DECREMENT_COUNT}>
+          {decrementCount => {
+            return (
+              <button
+                onClick={() => {
+                  decrementCount()
+                }}
+              >
+                Decrement counter
+              </button>
+            )
+          }}
+        </Mutation>
+        <button>Say hello</button>
+        <button>Say goodbye</button>
+      </div>
     )
   }
 }

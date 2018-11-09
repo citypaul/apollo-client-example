@@ -1,18 +1,11 @@
 import React from 'react'
 import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
 import './notification-bar.css'
 
-const query = gql`
-  query countQuery($count: Int) {
-    count @client {
-      number
-    }
-  }
-`
+import { COUNT_QUERY } from './graphql-crud/queries'
 
 export default () => (
-  <Query query={query}>
+  <Query query={COUNT_QUERY}>
     {({ loading, error, data }) => {
       console.log('notifaction bar data:', data)
       if (loading) {
@@ -23,7 +16,7 @@ export default () => (
         console.log('error: ', error)
       }
 
-      return <div className="notification-bar">Count: {data.count.number}</div>
+      return <div className="notification-bar">Count: {data.count}</div>
     }}
   </Query>
 )
