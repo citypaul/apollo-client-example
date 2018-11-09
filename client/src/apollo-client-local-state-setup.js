@@ -1,5 +1,6 @@
 // docs: https://www.apollographql.com/docs/link/links/state.html
 import { withClientState } from 'apollo-link-state'
+import gql from 'graphql-tag'
 
 const typeDefs = `
   type Count {
@@ -18,7 +19,7 @@ const typeDefs = `
 
 const defaults = {
   count: {
-    number: 1,
+    number: 0,
     __typename: 'Count',
   },
 }
@@ -30,25 +31,55 @@ export default cache =>
     defaults,
     resolvers: {
       Mutation: {
-        count: (_, { count = 0 }, { cache }) => {
+        incrementCount: (_, { number }, { cache }) => {
           const data = {
+            number: 1,
             __typename: 'Count',
-            count,
           }
 
-          cache.writeData({ data })
-          return null
+          // cache.writeData({ data })
+          console.log('x cache:', cache.readData())
+          return data
         },
-        // updateNetworkStatus: (_, { isConnected }, { cache }) => {
-        //   const data = {
-        //     networkStatus: {
-        //       __typename: 'NetworkStatus',
-        //       isConnected,
-        //     },
-        //   }
-        //   cache.writeData({ data })
-        //   return null
-        // },
       },
+      // Query: {
+      //   count: () => {
+      //     // const query = gql`
+      //     //   query countQuery($count: Int) {
+      //     //     count(count: $count) @client {
+      //     //       number
+      //     //     }
+      //     //   }
+      //     // `
+      //     // console.log('read data:', cache.readData({ query, variables: { number: 55 } }))
+      //     return {
+      //       number: 3,
+      //       __typename: 'Count',
+      //     }
+      //     // return cache.readData()
+
+      //     // return
+      //   },
+      // },
+      // Mutation: {
+      //   count: (_, { count = 0 }, { cache }) => {
+      //     const data = {
+      //       __typename: 'Count',
+      //       count,
+      //     }
+      //     cache.writeData({ data })
+      //     return null
+      //   },
+      // updateNetworkStatus: (_, { isConnected }, { cache }) => {
+      //   const data = {
+      //     networkStatus: {
+      //       __typename: 'NetworkStatus',
+      //       isConnected,
+      //     },
+      //   }
+      //   cache.writeData({ data })
+      //   return null
+      // },
+      // },
     },
   })

@@ -1,26 +1,3 @@
-// import React from 'react'
-// import { Mutation } from 'react-apollo'
-// import gql from 'graphql-tag'
-// import './notification-bar.css'
-
-// const mutation = gql`
-//   mutation countQuery($count: Int) {
-//     count(count: $count) @client {
-//       count
-//     }
-//   }
-// `
-
-// export default () => (
-//   <Mutation mutation={mutation}>
-//     {(count, { data }) => {
-//       console.log(count)
-//       console.log(data)
-//       return <div className="notification-bar" />
-//     }}
-//   </Mutation>
-// )
-
 import React from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -28,7 +5,7 @@ import './notification-bar.css'
 
 const query = gql`
   query countQuery($count: Int) {
-    count(count: $count) @client {
+    count @client {
       number
     }
   }
@@ -36,13 +13,17 @@ const query = gql`
 
 export default () => (
   <Query query={query}>
-    {({ data, loading }) => {
-      console.log(data)
+    {({ loading, error, data }) => {
+      console.log('notifaction bar data:', data)
       if (loading) {
         return <h1>loading...</h1>
       }
 
-      return <div className="notification-bar">{data.count.number}</div>
+      if (error) {
+        console.log('error: ', error)
+      }
+
+      return <div className="notification-bar">Count: {data.count.number}</div>
     }}
   </Query>
 )
